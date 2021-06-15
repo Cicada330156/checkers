@@ -4,27 +4,27 @@
     .boardSquare {
       width: 50;
       height: 50;
-      border-style: solid;
-      border-width: 3px;
+      outline-style: solid;
+      outline-width: 3px;
+      float: left;
     }
   </style>
 </head>
 <body>
   <div id="gameWindow" style="background-color: pink; width: 750px; height: 500px;">
-    <div id="board" styple="height:400px; width:400px;"></div>
+    <div id="board" style="height:400px; width:400px;"></div>
   </div>
 </body>
 <script>
-  generateSquare(x, y) {
+  function generateSquare(x, y) {
     name = "square" + x + y;
     return '<div id="' + name + '" class="boardSquare"></div>'
   }
   
-  for (i = 0; i < 8; i++;) {
-    for (e = 0; i < 8; i++;) {
+  for (i = 0; i < 8; i++) {
+    for (e = 0; e < 8; e++) {
       document.getElementById("board").innerHTML += generateSquare(e, (8-i));
     }
-    document.getElementById("board").innerHTML += "<br>";
   }
 </script>
 </html>
