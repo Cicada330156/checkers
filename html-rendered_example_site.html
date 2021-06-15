@@ -2,4 +2,19 @@
 <head>
 </head>
 <body>
+  <div id="gameWindow" style="background-color: pink; width: 750px; height: 500px;">
+    <div id="board" styple="height:400px; width:400px;"></div>
+  </div>
 </body>
+<script>
+  generateSquare(x, y) {
+    name = "square" + x + y;
+  }
+  
+  for (i = 0; i < 8; i++;) {
+    for (e = 0; i < 8; i++;) {
+      document.getElementById("board").innerHTML += generateSquare(e, (8-i));
+    }
+    document.getElementById("board").innerHTML += "<br>";
+  }
+</script>
