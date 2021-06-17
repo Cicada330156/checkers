@@ -14,6 +14,22 @@
         .white {
             background-color: white;
         }
+        .checker.dark {
+            width: 40;
+            height: 40;
+            border-radius: 23px;
+            border-style: ridge;
+            background-color: #a90909;
+            position: absolute;
+        }
+        .checker.light {
+            width: 40;
+            height: 40;
+            border-radius: 23px;
+            border-style: ridge;
+            background-color: white;
+            position: absolute;
+        }
     </style>
 </head>
 <body>
@@ -22,30 +38,43 @@
     </div>
 </body>
 <script>
+    piece = {
+        red: function (x, y) {return "<div class='checker dark' id='checker1" + x + y + "' style='display: none;'></div>"},
+        white: function (x, y) {return "<div class='checker light' id='checker0" + x + y + "' style='display: none;'></div>"}
+    };
     function generateSquare(x, y, red) {
         name = "square" + x + y;
         if (red) {
-            squareClass = "red"
+            squareClass = "red";
         } else {
-            squareClass = "white"
+            squareClass = "white";
         }
-        return '<div id="' + name + '" class="boardSquare ' + squareClass + ' "></div>'
+        return '<div id="' + name + '" class="boardSquare ' + squareClass + '">' + piece.red(x, y) + piece.white(x, y) + '</div>'
     }
     
     for (i = 0; i < 8; i++) {
         for (e = 0; e < 8; e++) {
-            document.getElementById("board").innerHTML += generateSquare(e, (8-i),    (Math.abs((e-i)%2)) == 0);
+            document.getElementById("board").innerHTML += generateSquare(e, (8-i), (Math.abs((e-i)%2)) != 0);
         }
     }
+    for (i = 0; i < 8; i++) {
+        document.getElementById("board").innerHTML += '<div style="width: 50; height: 50; float: left;"><p style="margin-top: 5px; margin-left: 25;">' + i + '</p></div>'
+    }
+
     boardSetup = [
-        [{ color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }],
         [{ color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }],
         [{ color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }],
+        [{ color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }],
         [{ color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }],
         [{ color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }],
-        [{ color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }],
         [{ color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }],
         [{ color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }],
+        [{ color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }],
     ]
+    /*for each in boardSetup {
+        for each in this {
+
+        }
+    }*/
 </script>
 </html>
