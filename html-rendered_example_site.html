@@ -8,11 +8,18 @@
             outline-width: 3px;
             float: left;
         }
+        .boardSquareButton {
+            width: 50;
+            height: 50;
+            background-color: #00000000;
+            border-style: none;
+            position: absolute;
+        }
         .red {
             background-color: red;
         }
         .white {
-            background-color: white;
+            background-color: lightgrey;
         }
         .checker.dark {
             width: 40;
@@ -49,11 +56,11 @@
         } else {
             squareClass = "white";
         }
-        return '<div id="' + name + '" class="boardSquare ' + squareClass + '">' + piece.red(x, y) + piece.white(x, y) + '</div>'
+        return '<div id="' + name + '" class="boardSquare ' + squareClass + '">' + piece.red(x, y) + piece.white(x, y) + '<button class="boardSquareButton" id="button' + x + y + '" onclick="clickSquare(' + x + y + ')"></div></div>'
     }
     
     for (i = 0; i < 8; i++) {
-        for (e = 0; e < 8; e++) {
+        for (e = 1; e < 9; e++) {
             document.getElementById("board").innerHTML += generateSquare(e, (8-i), (Math.abs((e-i)%2)) != 0);
         }
     }
@@ -62,19 +69,47 @@
     }
 
     boardSetup = [
-        [{ color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }],
-        [{ color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }],
-        [{ color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }, { color: null, crowned: false }, { color: "1", crowned: false }],
-        [{ color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }],
-        [{ color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }, { color: null, crowned: false }],
-        [{ color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }],
-        [{ color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }],
-        [{ color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }, { color: "0", crowned: false }, { color: null, crowned: false }],
+        [{ color: null, crowned: false, id: 11 }, { color: "1", crowned: false, id: 21 }, { color: null, crowned: false, id: 31 }, { color: "1", crowned: false, id: 41 }, { color: null, crowned: false, id: 51 }, { color: "1", crowned: false, id: 61 }, { color: null, crowned: false, id: 71 }, { color: "1", crowned: false, id: 81 }],
+        [{ color: "1", crowned: false, id: 12 }, { color: null, crowned: false, id: 22 }, { color: "1", crowned: false, id: 32 }, { color: null, crowned: false, id: 42 }, { color: "1", crowned: false, id: 52 }, { color: null, crowned: false, id: 62 }, { color: "1", crowned: false, id: 72 }, { color: null, crowned: false, id: 82 }],
+        [{ color: null, crowned: false, id: 13 }, { color: "1", crowned: false, id: 23 }, { color: null, crowned: false, id: 33 }, { color: "1", crowned: false, id: 43 }, { color: null, crowned: false, id: 53 }, { color: "1", crowned: false, id: 63 }, { color: null, crowned: false, id: 73 }, { color: "1", crowned: false, id: 83 }],
+        [{ color: null, crowned: false, id: 14 }, { color: null, crowned: false, id: 24 }, { color: null, crowned: false, id: 34 }, { color: null, crowned: false, id: 44 }, { color: null, crowned: false, id: 54 }, { color: null, crowned: false, id: 64 }, { color: null, crowned: false, id: 74 }, { color: null, crowned: false, id: 84 }],
+        [{ color: null, crowned: false, id: 15 }, { color: null, crowned: false, id: 25 }, { color: null, crowned: false, id: 35 }, { color: null, crowned: false, id: 45 }, { color: null, crowned: false, id: 55 }, { color: null, crowned: false, id: 65 }, { color: null, crowned: false, id: 75 }, { color: null, crowned: false, id: 85 }],
+        [{ color: "0", crowned: false, id: 16 }, { color: null, crowned: false, id: 26 }, { color: "0", crowned: false, id: 36 }, { color: null, crowned: false, id: 46 }, { color: "0", crowned: false, id: 56 }, { color: null, crowned: false, id: 66 }, { color: "0", crowned: false, id: 76 }, { color: null, crowned: false, id: 86 }],
+        [{ color: null, crowned: false, id: 17 }, { color: "0", crowned: false, id: 27 }, { color: null, crowned: false, id: 37 }, { color: "0", crowned: false, id: 47 }, { color: null, crowned: false, id: 57 }, { color: "0", crowned: false, id: 67 }, { color: null, crowned: false, id: 77 }, { color: "0", crowned: false, id: 87 }],
+        [{ color: "0", crowned: false, id: 18 }, { color: null, crowned: false, id: 28 }, { color: "0", crowned: false, id: 38 }, { color: null, crowned: false, id: 48 }, { color: "0", crowned: false, id: 58 }, { color: null, crowned: false, id: 68 }, { color: "0", crowned: false, id: 78 }, { color: null, crowned: false, id: 88 }],
     ]
-    /*for each in boardSetup {
-        for each in this {
+    boardSetup.forEach( index => {
+        index.forEach( index => {
+            if (index.color != null) {
+                console.log("checker" + index.color + index.id)
+                document.getElementById("checker" + index.color + index.id).style.display = "inline"
+            }
+        })
+    })
+
+
+
+    selected = null;
+    currentTurn = "0";
+    function clickSquare(thisID) {
+        console.log("clicked")
+        x = thisID.toString()[0];
+        y = thisID.toString()[1];
+        if (boardSetup[y - 1][x - 1].color == currentTurn) {
+            console.log("it's your turn")
+            if (selected == null) {
+                console.log("selecting")
+                select(thisID);
+            }
 
         }
-    }*/
+    }
+    function select(id) {
+        if (selected != null) {
+            document.getElementById("button" + selected).style.backgroundColor = "#00000000";
+        }
+        selected = id;
+        document.getElementById("button" + selected).style.backgroundColor = "#00000050";
+    }
 </script>
 </html>
